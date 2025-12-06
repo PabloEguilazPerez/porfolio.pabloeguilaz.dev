@@ -112,7 +112,7 @@ export default async function Page() {
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <div className="flex flex-wrap gap-1">
                   {skill.icons.map((s: any, i: number) => (
-                    <div style={{ "opacity": "1", "filter": "blur(0px)", "transform": "translateY(-6px) translateZ(0px)" }}>
+                    <div key={i} style={{ "opacity": "1", "filter": "blur(0px)", "transform": "translateY(-6px) translateZ(0px)" }}>
                       <div className="cursor-pointer inline-flex items-center rounded-md border px-2.5 md:px-4 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-box dark:bg-box_dark text-black dark:text-white shadow">
                         <img src={s.icon} alt={s.name} className="size-5 md:size-7 mr-1 md:p-0.5" />
                         <p className="text-black dark:text-white">{s.name}</p>
