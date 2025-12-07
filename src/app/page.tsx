@@ -5,11 +5,61 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { DATA } from "@/data/resume";
+import { Metadata } from "next";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
 const BLUR_FADE_DELAY = 0.04;
+
+export async function generateMetadata(): Promise<Metadata> {
+
+  try {
+    const data = await fetch(`https://api.pabloeguilaz.es/porfolio`).then((res) => res.json()).then((data) => data);
+
+
+    if (!data) {
+      return {
+        title: "Error",
+        description: "Error",
+      };
+    }
+
+    return {
+      metadataBase: new URL(`https://porfolio.pabloeguilaz.dev`),
+      title: data.seo.meta.title,
+      description: data.seo.meta.description,
+      keywords: "",
+      openGraph: {
+        title: data.seo.meta.title,
+        description: data.seo.meta.description,
+        url: `https://porfolio.pabloeguilaz.dev`,
+        siteName: data.seo.meta.title,
+        locale: "es_ES",
+        type: "article",
+        images: data.seo.open_graph.image
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: data.seo.meta.title,
+        description: data.seo.meta.description,
+        creator: "@yourname",
+      },
+      icons: {
+        icon: "/favicon.ico",
+      },
+      alternates: {
+        canonical: "https://porfolio.pabloeguilaz.dev"
+      }
+
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      title: "Error al generar metadata",
+      description: "Hubo un error al preparar los metadatos de la página.",
+    };
+  }
+}
 
 export default async function Page() {
 
@@ -19,6 +69,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
+      <h1 className="sr-only">Portfolio {res.title}</h1>
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
@@ -180,11 +231,11 @@ export default async function Page() {
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Durante mi época en la universidad, asistí a más de{" "}
-                  {res.hackathons.length} hackathones. Personas de todo el 
-                  país se reunían para crear cosas increíbles en tan solo 2 
-                   3 días. Fue revelador ver las infinitas posibilidades que 
-                   podían hacerse realidad gracias a un grupo de personas 
-                   motivadas y apasionadas.
+                  {res.hackathons.length} hackathones. Personas de todo el
+                  país se reunían para crear cosas increíbles en tan solo 2
+                  3 días. Fue revelador ver las infinitas posibilidades que
+                  podían hacerse realidad gracias a un grupo de personas
+                  motivadas y apasionadas.
                 </p>
               </div>
             </div>
