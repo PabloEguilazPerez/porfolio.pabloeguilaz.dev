@@ -15,21 +15,21 @@ export const DATA = {
 
         navbar: true,
       },
-      /*
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://dub.sh/dillion-linkedin",
+        url: "www.linkedin.com/in/pabloeguilazperez",
         icon: Icons.linkedin,
 
         navbar: true,
       },
       X: {
         name: "X",
-        url: "https://dub.sh/dillion-twitter",
+        url: "https://x.com/pabloeguilazz",
         icon: Icons.x,
 
         navbar: true,
       },
+      /*
       Youtube: {
         name: "Youtube",
         url: "https://dub.sh/dillion-youtube",
